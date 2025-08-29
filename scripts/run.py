@@ -7,7 +7,7 @@ import sys
 
 import numpy as np
 import torch
-from data_utils import (
+from ligandmpnn.data_utils import (
     alphabet,
     element_dict_rev,
     featurize,
@@ -19,9 +19,9 @@ from data_utils import (
     restype_str_to_int,
     write_full_PDB,
 )
-from model_utils import ProteinMPNN
+from ligandmpnn.model_utils import ProteinMPNN
 from prody import writePDB
-from sc_utils import Packer, pack_side_chains
+from ligandmpnn.sc_utils import Packer, pack_side_chains
 
 
 def main(args) -> None:
@@ -126,7 +126,9 @@ def main(args) -> None:
     if args.fixed_residues_multi:
         with open(args.fixed_residues_multi, "r") as fh:
             fixed_residues_multi = json.load(fh)
-            fixed_residues_multi = {key:value.split() for key,value in fixed_residues_multi.items()}
+            fixed_residues_multi = {
+                key: value.split() for key, value in fixed_residues_multi.items()
+            }
     else:
         fixed_residues = [item for item in args.fixed_residues.split()]
         fixed_residues_multi = {}
@@ -136,7 +138,9 @@ def main(args) -> None:
     if args.redesigned_residues_multi:
         with open(args.redesigned_residues_multi, "r") as fh:
             redesigned_residues_multi = json.load(fh)
-            redesigned_residues_multi = {key:value.split() for key,value in redesigned_residues_multi.items()}
+            redesigned_residues_multi = {
+                key: value.split() for key, value in redesigned_residues_multi.items()
+            }
     else:
         redesigned_residues = [item for item in args.redesigned_residues.split()]
         redesigned_residues_multi = {}
@@ -186,7 +190,6 @@ def main(args) -> None:
         parse_these_chains_only_list = args.parse_these_chains_only.split(",")
     else:
         parse_these_chains_only_list = []
-
 
     # loop over PDB paths
     for pdb in pdb_paths:

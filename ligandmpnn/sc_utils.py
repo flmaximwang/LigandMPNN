@@ -4,7 +4,7 @@ import numpy as np
 import torch
 import torch.distributions as D
 import torch.nn as nn
-from model_utils import (
+from .model_utils import (
     DecLayer,
     DecLayerJ,
     EncLayer,
@@ -14,15 +14,15 @@ from model_utils import (
     gather_nodes,
 )
 
-from openfold.data.data_transforms import atom37_to_torsion_angles, make_atom14_masks
-from openfold.np.residue_constants import (
+from .openfold.data.data_transforms import atom37_to_torsion_angles, make_atom14_masks
+from .openfold.np.residue_constants import (
     restype_atom14_mask,
     restype_atom14_rigid_group_positions,
     restype_atom14_to_rigid_group,
     restype_rigid_group_default_frame,
 )
-from openfold.utils import feats
-from openfold.utils.rigid_utils import Rigid
+from .openfold.utils import feats
+from .openfold.utils.rigid_utils import Rigid
 
 torch_pi = torch.tensor(np.pi, device="cpu")
 
@@ -98,7 +98,9 @@ def pack_side_chains(
         log_probs_of_samples = pred_dist.log_prob(predicted_samples)
         sample = torch.gather(
             predicted_samples, dim=0, index=torch.argmax(log_probs_of_samples, 0)[None,]
-        )[0,]
+        )[
+            0,
+        ]
         torsions_pred_unit = torch.cat(
             [torch.sin(sample[:, :, :, None]), torch.cos(sample[:, :, :, None])], -1
         )
@@ -208,7 +210,7 @@ def make_torsion_features(feature_dict, repack_everything=True):
         S_af2,
         torch.tensor(restype_rigid_group_default_frame, device=device),
     )
-    
+
     xyz14_noised = feats.frames_and_literature_positions_to_atom14_pos(
         pred_frames,
         S_af2,
