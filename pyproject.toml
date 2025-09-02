@@ -4,41 +4,36 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "ligandmpnn"
-version = "0.1.0"
+version = "0.1.1"
 description = "LigandMPNN: protein-ligand design toolkit"
 authors = ["LigandMPNN Authors"]
 readme = "README.md"
 packages = [
 	{ include = "ligandmpnn" }
 ]
-include = [
-	"scripts/run.py",
-	"scripts/score.py",
-    "scripts/get_params.py"
-]
 
 [tool.poetry.dependencies]
 python = ">=3.9"
-biopython = "1.79"
-filelock = "3.13.1"
-fsspec = "2024.3.1"
-Jinja2 = "3.1.3"
-MarkupSafe = "2.1.5"
-mpmath = "1.3.0"
-networkx = "3.2.1"
-numpy = "1.23.5"
-ProDy = "2.4.1"
-pyparsing = "3.1.1"
-scipy = "1.12.0"
+biopython = "^1.79"
+filelock = "^3.13.1"
+fsspec = "^2024.3.1"
+Jinja2 = "^3.1.3"
+MarkupSafe = "^2.1.5"
+mpmath = "^1.3.0"
+networkx = "^3.2.1"
+numpy = "^2"
+ProDy = "^2.6.1"
+pyparsing = "^3.1.1"
+scipy = "^1.12.0"
 sympy = "1.12"
-torch = "2.2.1"
-typing-extensions = "4.10.0"
-ml-collections = "0.1.1"
-dm-tree = "0.1.8"
+torch = "^2.2.1"
+typing-extensions = "^4.10.0"
+ml-collections = "^0.1.1"
+dm-tree = "^0.1.8"
 tqdm = "^4.67.1"
 requests = "^2.32.5"
 
-[tool.poetry.group.train.dependencies]
+[tool.poetry.group.cuda.dependencies]
 nvidia-cublas-cu12 = "12.1.3.1"
 nvidia-cuda-cupti-cu12 = "12.1.105"
 nvidia-cuda-nvrtc-cu12 = "12.1.105"
@@ -54,6 +49,6 @@ nvidia-nvtx-cu12 = "12.1.105"
 triton = "2.2.0"
 
 [tool.poetry.scripts]
-ligandmpnn_run = "scripts.run:main"
-ligandmpnn_score = "scripts.score:main"
-ligandmpnn_get_params = "scripts.get_params:main"
+ligandmpnn_run = "ligandmpnn.scripts.run:main"
+ligandmpnn_score = "ligandmpnn.scripts.score:main"
+ligandmpnn_get_params = "ligandmpnn.scripts.get_params:main"
